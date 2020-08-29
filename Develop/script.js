@@ -59,24 +59,64 @@ function askLength(){
 
 function generatePassword(){ // function to assemble password
   
-  var hasChosenType = false; // at least one type specified
+  var passwordOutput = "";
+  var numTypesChosen = 0; // at least one type specified
+
+  var charOptions = [false, false, false, false];
   var hasLowercase = false; // if lowercase is selected
   var hasUppercase = false; // if uppercase is selected
   var hasNumerals = false; // if numerals are selected
-  var hasSpecial = false; // if special characters are allowed
+  var hasSpecial = false; //if special characters are allowed
 
   // first get a valid length
   askLength();
   
   // ask for parameters
-  while (!hasChosenType){
+  while (numTypesChosen == 0){
     hasLowercase = confirm("Do you want to include lowecase characters?");
     hasUppercase = confirm("Do you want to include uppercase characters?");
     hasNumerals = confirm("Do you want to include numeric characters?");
-    hasSpecial = confirm("Do you want to include special characters?")
+    hasSpecial = confirm("Do you want to include special characters?");
 
-    if (hasLowercase || hasUppercase || hasNumerals || hasSpecial){ // if at least one type is chosen
-      hasChosenType = true;
+    if (hasLowercase){
+      numTypesChosen += 1;
+    }
+    if (hasUppercase){
+      numTypesChosen += 1;
+    }
+     if (hasNumerals){
+      numTypesChosen += 1;
+    }
+    if (hasSpecial){
+      numTypesChosen += 1;
+    }
+      if (!hasLowercase && !hasUppercase && !hasNumerals && !hasSpecial) { // if none chosen, ask again
+        hasLowercase = confirm("Do you want to include lowecase characters?");
+        hasUppercase = confirm("Do you want to include uppercase characters?");
+        hasNumerals = confirm("Do you want to include numeric characters?");
+        hasSpecial = confirm("Do you want to include special characters?");
     }
   }
+  console.log(numTypesChosen);
+
+  // begin generating password
+  for (var i = 0; i < passwordLength; i++){ //for each character in the password length
+    var randomType = Math.floor(Math.random() * (numTypesChosen)); // randomly select a character type from those available
+    if (hasLowercase){ // DOES NOT ACTUALLY WORK YET FOR RANDOM SELECTION
+      passwordOutput += lowerCaseArray[Math.floor(Math.random() * (lowerCaseArray.length))]; // randomly select from within lower case character set
+    }
+    else if (hasUppercase){
+      passwordOutput += upperCaseArray[Math.floor(Math.random() * (upperCaseArray.length))]; // randomly select from upper case character set
+    }
+    else if (hasNumerals){
+      passwordOutput += numeralArray[Math.floor(Math.random() * (numeralArray.length))]; // randomly select from numeral character set
+    }
+    else if (hasSpecial){
+      passwordOutput += specialChars[Math.floor(Math.random() * (specialChars.length))]; // randomly select from special character set
+    }
+    
+  }
+
+  return passwordOutput; // output generated password
+
 }
