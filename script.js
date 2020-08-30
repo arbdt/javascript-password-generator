@@ -40,6 +40,8 @@ function askLength(){
                 }
             }
         }
+        console.log(`password length is: ${passwordLength}`);
+        console.log(`digitsNumeral is: ${digitsNumeral}`);
         if (digitsNumeral == passwordLength.length){ //if all are digits
             lengthIsNum = true;
         }
@@ -79,19 +81,19 @@ function generatePassword(){ // function to assemble password
         hasNumerals = confirm("Do you want to include numeric characters?");
         hasSpecial = confirm("Do you want to include special characters?");
 
-        if (hasLowercase){
-            numTypesChosen += 1;
-            charOptions.push("lower");
+        if (hasLowercase){               // confirm lower case characters
+            numTypesChosen += 1;         // record that at least one type has been chosen
+            charOptions.push("lower");   // add to array of available options for random selection
         }
-        if (hasUppercase){
+        if (hasUppercase){               // confirm upper case characters
             numTypesChosen += 1;
             charOptions.push("upper");
         }
-        if (hasNumerals){
+        if (hasNumerals){                // confirm numerals
             numTypesChosen += 1;
             charOptions.push("number");
         }
-        if (hasSpecial){
+        if (hasSpecial){                 // confirm special characters
             numTypesChosen += 1;
             charOptions.push("special");
         }
@@ -108,16 +110,16 @@ function generatePassword(){ // function to assemble password
     // begin generating password
     for (var i = 0; i < passwordLength; i++){ //for each character in the password length
         var randomType = Math.floor(Math.random() * (numTypesChosen)); // randomly select a character type from those available
-        if (hasLowercase && charOptions[randomType] === "lower"){ // DOES NOT ACTUALLY WORK YET FOR RANDOM SELECTION
+        if (hasLowercase && charOptions[randomType] === "lower"){                                   // if lowercase is available, and randomly chosen for this digit
             passwordOutput += lowerCaseArray[Math.floor(Math.random() * (lowerCaseArray.length))]; // randomly select from within lower case character set
         }
-        else if (hasUppercase && charOptions[randomType] === "upper"){
+        else if (hasUppercase && charOptions[randomType] === "upper"){                              // if uppercase is available, and randomly chosen for this digit
             passwordOutput += upperCaseArray[Math.floor(Math.random() * (upperCaseArray.length))]; // randomly select from upper case character set
         }
-        else if (hasNumerals && charOptions[randomType] === "number"){
+        else if (hasNumerals && charOptions[randomType] === "number"){                          // if numbers are available, and randomly chosen for this digit
             passwordOutput += numeralArray[Math.floor(Math.random() * (numeralArray.length))]; // randomly select from numeral character set
         }
-        else if (hasSpecial && charOptions[randomType] === "special"){
+        else if (hasSpecial && charOptions[randomType] === "special"){                          // if special characters are available, and randomly chosen for this digit
             passwordOutput += specialChars[Math.floor(Math.random() * (specialChars.length))]; // randomly select from special character set
         }
     
