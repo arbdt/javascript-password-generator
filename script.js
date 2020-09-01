@@ -1,4 +1,4 @@
-// Assignment Code
+// Assignment Code (EXISTING, UNTOUCHED)
 var generateBtn = document.querySelector("#generate");
 
 //variables
@@ -10,7 +10,7 @@ var upperCaseArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"
 var numeralArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 var specialChars = ["!", "\"", "#", "$", "%", "&", "\'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "\\", "]", "^", "_", "\`", "{", "|", "}", "~"];
 
-// Write password to the #password input
+// Write password to the #password input (EXISTING, UNTOUCHED)
 function writePassword() {
     var password = generatePassword();
     var passwordText = document.querySelector("#password");
@@ -18,7 +18,7 @@ function writePassword() {
     passwordText.value = password;
 }
 
-// Add event listener to generate button
+// Add event listener to generate button (EXISTING, UNTOUCHED)
 generateBtn.addEventListener("click", writePassword);
 
 //function to check for valid password length input
@@ -30,6 +30,7 @@ function askLength(){
     // ask for length
     while (!lengthIsNum){
         passwordLength = prompt("Please enter a length between 8 and 128 characters:");
+        console.log(`The length entered is: ${passwordLength}`); // for debugging
     
         //check validation - first for non-numeral input
         var digitsNumeral = 0;
@@ -39,14 +40,14 @@ function askLength(){
                     digitsNumeral += 1; // count correct characters
                 }
             }
-        }
-        console.log(`password length is: ${passwordLength}`);
-        console.log(`digitsNumeral is: ${digitsNumeral}`);
-        if (digitsNumeral == passwordLength.length){ //if all are digits
+        };
+        console.log(`digitsNumeral is: ${digitsNumeral}`); // for debugging
+        if (digitsNumeral == passwordLength.length){ // if all are digits
             lengthIsNum = true;
         }
         else { // if not correct input, ask again
             passwordLength = prompt("Please enter a length between 8 and 128 characters:");
+            console.log(`password length is: ${passwordLength}`) // for debugging
         }
     }
 
@@ -54,46 +55,47 @@ function askLength(){
     if (lengthIsNum){ // input is a number, so can move on
         while (passwordLength < 8 || passwordLength > 128){ // if outside accepted range, revalidate
             lengthIsNum = false; 
-            passwordLength = prompt("Please enter a length between 8 and 128 characters:");
+            passwordLength = prompt("Please enter a length between 8 and 128 characters:"); // ask again for acceptable input
+            console.log(`password length is: ${passwordLength}`) // for debugging
         }
     }
 }
 
 function generatePassword(){ // function to assemble password
   
-    var passwordOutput = "";
+    var passwordOutput = ""; // variable to hold assembled password
 
     var numTypesChosen = 0; // at least one type specified
-    var charOptions = [];
+    var charOptions = []; // array to hold chosen option for later random selection
 
     var hasLowercase = false; // if lowercase is selected
     var hasUppercase = false; // if uppercase is selected
     var hasNumerals = false; // if numerals are selected
     var hasSpecial = false; //if special characters are allowed
 
-    // first get a valid length
+    // first get a valid length (see function askLength() above)
     askLength();
   
     // ask for parameters
     while (numTypesChosen == 0){
-        hasLowercase = confirm("Do you want to include lowercase characters?");
-        hasUppercase = confirm("Do you want to include uppercase characters?");
-        hasNumerals = confirm("Do you want to include numeric characters?");
-        hasSpecial = confirm("Do you want to include special characters?");
+        hasLowercase = confirm("Do you want to include lowercase characters?"); // ask if lowercase is wanted
+        hasUppercase = confirm("Do you want to include uppercase characters?"); // ask if uppercase is wanted
+        hasNumerals = confirm("Do you want to include numeric characters?"); // ask if numerals are wanted
+        hasSpecial = confirm("Do you want to include special characters?"); // ask if special characters are wanted
 
         if (hasLowercase){               // confirm lower case characters
             numTypesChosen += 1;         // record that at least one type has been chosen
             charOptions.push("lower");   // add to array of available options for random selection
         }
-        if (hasUppercase){               // confirm upper case characters
+        if (hasUppercase){               // as above, but for uppercase characters
             numTypesChosen += 1;
             charOptions.push("upper");
         }
-        if (hasNumerals){                // confirm numerals
+        if (hasNumerals){                // as above, but for numerals
             numTypesChosen += 1;
             charOptions.push("number");
         }
-        if (hasSpecial){                 // confirm special characters
+        if (hasSpecial){                 // as above, but for special characters
             numTypesChosen += 1;
             charOptions.push("special");
         }
@@ -104,8 +106,8 @@ function generatePassword(){ // function to assemble password
             hasSpecial = confirm("Do you want to include special characters?");
         }
     }
-    console.log(numTypesChosen);
-    console.log(charOptions);
+    console.log(numTypesChosen); // for deugging
+    console.log(charOptions); // for debugging
 
     // begin generating password
     for (var i = 0; i < passwordLength; i++){ //for each character in the password length
